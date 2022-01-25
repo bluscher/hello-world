@@ -1,18 +1,29 @@
 version: 2.1
 jobs:
-  build:
+  save_hello_world_output:
     docker:
       - image: circleci/node:13.8.0
       #- image: cimg/base:2020.01  
     steps:
       - checkout
-      - run:
-          name: "echo variable de entorno solicitado en el ejercicio"
-          command: |
-            echo $MY_ENV_VAR
-            echo $CIRCLE_BUILD_NUM
+      - run: echo "hello world" > ~/output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
+  print_output_file:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: cat ~/output.txt
+          
 workflows:
-  test-env-vars:
+  test-output lesson:
     jobs:
-     - build
+      - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output
 
