@@ -1,26 +1,18 @@
 version: 2.1
+commands:
+  print_pipeline_id:
+    steps:
+      - run: echo ${CIRCLE_WORKFLOW_ID}
 jobs:
-  print_hello:
+  my_job:
     docker:
       - image: circleci/node:13.8.0
       #- image: cimg/base:stable >> original 
     steps:
-      #- checkout >> original config
-      - run:
-          #name: "print_hello"
-          command: "echo Hello, job 1 !"
-  print_world:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - run:
-          #name: "print_world"
-          command: "echo World, job 2 !"
+      - print_pipeline_id
+
 workflows:
-  say-hello_world-workflow:
+  my_workflow:
     jobs:
-      - print_hello
-      - print_world:
-          requires:
-            - print_hello
+      - my_job
 
