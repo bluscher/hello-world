@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "echo Hello, variable de entorno"
+          name: "echo variable de entorno solicitado en el ejercicio"
           command: |
             echo $MY_ENV_VAR
 workflows:
