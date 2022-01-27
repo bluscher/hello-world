@@ -1,15 +1,21 @@
 version: 2.1
 commands:
   print_pipeline_id:
-    steps:
-      - run: echo ${CIRCLE_WORKFLOW_ID}
+    parameters:
+      id:
+        type: string
+    steps: run << paramaters.id >>
 jobs:
   my_job:
     docker:
       - image: circleci/node:13.8.0
       #- image: cimg/base:stable >> original 
     steps:
-      - print_pipeline_id
+      - run: return 1
+      - run: 
+          name: Ej Error en Pipline
+          command: echo "Tengo un error"
+          when: on_fail
 
 workflows:
   my_workflow:
