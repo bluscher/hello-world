@@ -1,10 +1,4 @@
 version: 2.1
-commands:
-  print_pipeline_id:
-    parameters:
-      id:
-        type: string
-    steps: run << paramaters.id >>
 jobs:
   my_job:
     docker:
